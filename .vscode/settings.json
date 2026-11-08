@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "Retail Customer Intelligence",
+      "database": "retail_customer_intelligence",
+      "username": "postgres"
+    }
+  ]
+}

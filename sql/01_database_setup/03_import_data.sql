@@ -1,0 +1,22 @@
+-- =====================================================
+-- PROJECT: Retail Customer Intelligence
+-- PHASE 1: Data Import
+-- DATABASE: retail_customer_intelligence
+-- =====================================================
+-- Data imported using pgAdmin 4 Import/Export Data.
+-- Import settings:
+-- Format: CSV
+-- Header: TRUE
+-- Delimiter: ,
+-- Encoding: UTF8
+-- Import order:
+-- 1. product.csv
+-- 2. hh_demographic.csv
+-- 3. transaction_data.csv
+-- 4. campaign_desc.csv
+-- 5. campaign_table.csv
+-- 6. coupon.csv
+-- 7. coupon_redempt.csv
+-- Source: dunnhumby - The Complete Journey
+-- Original dataset files are not included in GitHub.
+-- causal_data.csv is excluded from this project.
