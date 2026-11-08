@@ -1,4 +1,9 @@
--- Final verification of our the first three imported tables
+-- =====================================================
+-- PROJECT: Retail Customer Intelligence
+-- PHASE 1: Validate Data Import
+-- DATABASE: retail_customer_intelligence
+-- =====================================================
+-- Final verification of the first three imported tables
 -- Core Tables — Customer & Sales Data
 SELECT 'product' AS table_name,
     COUNT(*) AS total_rows
@@ -27,6 +32,8 @@ FROM transaction_data;
  }
  ]
  */
+-- Final verification of the next four imported tables
+-- Marketing & Promotion Tables
 SELECT 'campaign_desc' AS table_name,
     COUNT (*) AS total_rows
 FROM campaign_desc

@@ -1,6 +1,7 @@
 -- =====================================================
 -- PROJECT: Retail Customer Intelligence
 -- PHASE 1: Validate Table Relationships
+-- DATABASE: retail_customer_intelligence
 -- =====================================================
 -- Check transaction records without a matching product
 SELECT COUNT(*) AS unmatched_product_records

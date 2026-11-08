@@ -1,9 +1,7 @@
 -- =====================================================
 -- PROJECT: Retail Customer Intelligence
--- PHASE 1: Database Setup
--- PURPOSE: Create the three core dataset tables
+-- PHASE 1: Create the dataset tables
 -- DATABASE: retail_customer_intelligence
--- =====================================================
 -- =====================================================
 -- Core Tables — Customer & Sales Data
 -- =====================================================
