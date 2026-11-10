@@ -1,0 +1,2 @@
+-- This document would serve as the agreed scope of work with the fictional retailer client
+-- The agreed business problem, analytical scope, objectives, deliverables prepared after Phase 1 & 2; the preliminary discovery and data feasibility stage
