@@ -9,6 +9,7 @@
 -- Query 1.3: Declining Purchasing Activity & Inactivity
 -- Purpose: Identify households with reduced purchasing
 -- frequency or prolonged periods without purchases.
+-- =====================================================
 WITH household_activity AS (
     SELECT household_key,
         MAX(day) AS last_purchase_day,
