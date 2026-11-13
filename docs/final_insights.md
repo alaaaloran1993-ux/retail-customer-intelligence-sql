@@ -51,3 +51,79 @@ Customer purchasing patterns vary substantially. While many households are incre
 - [Weekly Purchasing Activity](../outputs/charts/01_obj1_weekly_purchasing_activity.png)
 - [Weekly Customer Spending](../outputs/charts/01_obj2_weekly_customer_spending.png)
 - [Customer Activity Status](../outputs/charts/01_obj3_customer_activity_status.png)
+
+## Objective 2 — Identify Customer Value Drivers
+
+### Q4. Customer Revenue Distribution
+
+Total recorded sales across 2,500 households reached
+8,057,462.65.
+
+- Top 10% of households: 34.29% of sales.
+- Top 20% of households: 53.05% of sales.
+- Bottom 50% of households: approximately 15.66% of sales.
+- Average household spending: 3,222.99.
+- Median household spending: 2,157.75.
+
+**Business Insight:** Sales are concentrated among
+higher-spending households. Retaining their engagement
+may be important for protecting future sales.
+
+### Q5. Household Spending Drivers
+
+Pearson correlations with total household spending:
+
+- Shopping frequency: 0.703.
+- Average basket value: 0.390.
+
+**Business Insight:** Shopping frequency has a stronger
+positive linear association with total spending than
+average basket value. Encouraging repeat purchasing
+could be explored as a growth opportunity.
+
+These relationships do not demonstrate causation.
+
+### Q6. Product Preferences and Diversity
+
+Department share of each group's recorded sales:
+
+| Department | High-Value | Lower-Value |
+| ---------- | ---------: | ----------: |
+| Grocery    |     49.01% |      52.84% |
+| Drug GM    |     13.49% |      12.66% |
+| Kiosk-Gas  |      8.30% |       5.01% |
+| Produce    |      6.99% |       6.84% |
+| Meat       |      6.48% |       7.19% |
+
+Both groups concentrate spending in broadly similar
+departments. Grocery is the largest department for each
+group, while Kiosk-Gas represents a greater share of
+High-Value household spending.
+
+High-Value households purchased from an average of
+16.14 departments (median 16), compared with 11.31
+departments (median 11) for Lower-Value households.
+
+**Business Insight:** Higher-spending households
+purchase across a wider range of departments.
+Broader category engagement among Lower-Value households
+may offer opportunities for further investigation.
+
+### Overall Objective 2 Conclusion
+
+Revenue is concentrated among higher-spending households,
+whose spending is more strongly associated with shopping
+frequency and who purchase across more departments.
+
+Potential opportunities include protecting engagement
+among high-spending households, encouraging repeat
+purchases, and exploring cross-category purchasing.
+
+These are analytical opportunities, not demonstrated
+effects of specific marketing interventions.
+
+### Objective 1 visualizations
+
+- ![Customer Revenue Distribution](outputs/charts/customer_revenue_by_decile.png)
+- ![Department Spending Mix](outputs/charts/department_spending_mix.png)
+- ![Category Diversity](outputs/charts/category_diversity_by_customer_group.png)

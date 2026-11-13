@@ -72,4 +72,58 @@ The **90-day inactivity threshold is an analytical assumption**, not a verified 
 
 The business objectives and questions are governed by `docs/business_case.md` and remain the agreed scope baseline. Methodological details can be refined with documented justification; **material changes to scope must be recorded separately**, rather than silently rewriting the business case. Findings and business recommendations are maintained in `docs/final_insights.md`.
 
-_Future Objective 2 and Objective 3 methods will be added here after those analyses are completed._
+## Objective 2 — Customer Value Analysis
+
+### Spending Measurement
+
+Household spending is calculated by summing all recorded
+sales lines within qualifying purchase baskets, consistent
+with Objective 1. Values represent recorded sales in the
+dataset's units, not verified profit or net revenue.
+
+### Customer Revenue Distribution (Q4)
+
+Households are ranked by total historical spending and
+divided into ten approximately equal groups using
+`NTILE(10)`. This allows us to compare revenue contributions
+across spending deciles without fixed spending thresholds.
+
+### Spending Drivers (Q5)
+
+Pearson correlation (`CORR`) measures the strength and
+direction of the linear relationships between total
+household spending and:
+
+- Purchase frequency (qualifying baskets per household).
+- Average recorded sales per qualifying basket.
+
+Correlation is descriptive and does not establish causation.
+Total spending is mathematically related to both measures.
+
+### Customer Groups (Q6)
+
+Based on Q4, households are classified as:
+
+- High-Value: Top 20% by total historical spending
+  (500 households).
+- Lower-Value: Remaining 80% (2,000 households).
+
+`NTILE(5)` is used to assign these groups dynamically.
+These are analysis-defined classifications, not official
+customer segments or the RFM segments planned for Objective 3.
+
+### Department Preferences and Diversity
+
+- Department spending shares are calculated separately
+  within each customer group.
+- Department diversity counts distinct departments with
+  positive quantity and positive recorded sales per household.
+- Blank department names are excluded from diversity.
+- Fuel and miscellaneous transaction departments remain
+  included unless otherwise specified.
+
+Department diversity is measured across the observation
+period and may partly reflect differences in shopping
+frequency and opportunities to purchase.
+
+_Future Objective 3 methods will be added here after those analyses are completed._
