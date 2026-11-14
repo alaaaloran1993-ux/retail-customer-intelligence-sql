@@ -182,9 +182,13 @@ SELECT customer_segment,
 FROM customer_segments
 GROUP BY customer_segment
 ORDER BY avg_inactivity_days DESC;
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
- Findings - Inactivity Patterns by RFM Segment:
+ FINAL SUMMARY - BUSINESS QUESTION 8
  
+ Key Findings: Inactivity Patterns by RFM Segment:
  - Hibernating households show the longest inactivity:
  median 41 days; 24.77% inactive for 90+ days.
  - At-Risk households have a median inactivity of 20 days;

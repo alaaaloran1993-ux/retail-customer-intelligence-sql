@@ -144,6 +144,9 @@ FROM first_redemption;
  Eligibility confirms observation-window coverage,
  not purchasing activity or promotional effectiveness.
  */
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
  FINAL SUMMARY - PROMOTIONAL DATA VALIDATION
  Key Findings:

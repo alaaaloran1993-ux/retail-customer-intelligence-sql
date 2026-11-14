@@ -5,6 +5,7 @@
 -- =====================================================
 -- Final verification of the first three imported tables
 -- Core Tables — Customer & Sales Data
+-- =====================================================
 SELECT 'product' AS table_name,
     COUNT(*) AS total_rows
 FROM product
@@ -17,23 +18,16 @@ SELECT 'transaction_data',
     COUNT(*)
 FROM transaction_data;
 /*
- [
- {
- "table_name": "product",
- "total_rows": "92353"
- },
- {
- "table_name": "hh_demographic",
- "total_rows": "801"
- },
- {
- "table_name": "transaction_data",
- "total_rows": "2595732"
- }
- ]
+ Findings - Core Table Import:
+ - product: 92,353 rows.
+ - hh_demographic: 801 rows.
+ - transaction_data: 2,595,732 rows.
+ - All three tables contain imported records.
  */
+-- =====================================================
 -- Final verification of the next four imported tables
 -- Marketing & Promotion Tables
+-- =====================================================
 SELECT 'campaign_desc' AS table_name,
     COUNT (*) AS total_rows
 FROM campaign_desc
@@ -50,22 +44,17 @@ SELECT 'coupon_redempt',
     COUNT (*)
 FROM coupon_redempt;
 /*
- [
- {
- "table_name": "campaign_desc",
- "total_rows": "30"
- },
- {
- "table_name": "campaign_table",
- "total_rows": "7208"
- },
- {
- "table_name": "coupon",
- "total_rows": "124548"
- },
- {
- "table_name": "coupon_redempt",
- "total_rows": "2318"
- }
- ]
+ Findings - Promotional Table Import:
+ - campaign_desc: 30 rows; campaign_table: 7,208 rows.
+ - coupon: 124,548 rows; coupon_redempt: 2,318 rows.
+ - All four promotional tables contain imported records.
+ */
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
+/*
+ FINAL SUMMARY - DATA IMPORT VALIDATION
+ All seven source tables were imported and contain records.
+ These row counts establish the imported data volumes; they do
+ not by themselves confirm completeness or data accuracy.
  */

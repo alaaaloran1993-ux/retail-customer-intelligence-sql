@@ -208,6 +208,9 @@ ORDER BY households DESC;
  not confirmed evidence of customer disengagement.
  We will test their actual inactivity patterns in Q8.
  */
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
  FINAL SUMMARY - BUSINESS QUESTION 7
  Key Findings:

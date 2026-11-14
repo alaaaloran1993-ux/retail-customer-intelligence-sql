@@ -183,6 +183,9 @@ LIMIT 20;
  The criteria identify opportunities for investigation,
  not predicted responses to marketing.
  */
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
  FINAL SUMMARY - BUSINESS QUESTION 9
  

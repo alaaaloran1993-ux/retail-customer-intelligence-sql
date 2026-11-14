@@ -119,6 +119,9 @@ ORDER BY spending_decile;
  Households are divided into 10 equally sized groups
  based on historical spending.
  */
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
  FINAL SUMMARY - BUSINESS QUESTION 4
  Key Findings:
@@ -137,8 +140,9 @@ ORDER BY spending_decile;
  High spending does not necessarily mean high loyalty
  or profitability.
  */
---
---
+-- =====================================================
+-- Methodology Note
+-- =====================================================
 /*
  Methodology Note:
  Pearson correlation is a statistical method used to measure

@@ -56,8 +56,13 @@ SELECT COUNT(*) AS households_with_complete_30day_windows,
     ROUND(AVG(spending_after), 2) AS avg_spending_after,
     ROUND(AVG(spending_after - spending_before), 2) AS avg_spending_change
 FROM household_activity;
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
- Findings - Business Question 11: Purchasing After Redemption
+ FINAL SUMMARY - BUSINESS QUESTION 11
+ 
+ Key Findings: Business Question 11: Purchasing After Redemption
  - 432 households had complete 30-day observation windows
  before and after their first coupon redemption.
  - Average purchase baskets decreased slightly

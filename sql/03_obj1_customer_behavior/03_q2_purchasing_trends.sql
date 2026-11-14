@@ -108,6 +108,9 @@ ORDER BY week_no;
  Only complete weeks are compared. Sales are based on
  recorded sales_value from qualifying baskets.
  */
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
  FINAL SUMMARY - BUSINESS QUESTION 2
  

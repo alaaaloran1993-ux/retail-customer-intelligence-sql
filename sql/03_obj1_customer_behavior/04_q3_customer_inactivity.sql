@@ -47,9 +47,13 @@ SELECT customer_status,
 FROM customer_status
 GROUP BY customer_status
 ORDER BY households DESC;
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
- Findings - Customer Purchasing Activity:
+ FINAL SUMMARY - BUSINESS QUESTION 3
  
+ Key Findings:
  - 43.00% of households increased their purchases.
  - 42.60% purchased less frequently.
  - 7.44% maintained the same purchase frequency.
@@ -66,13 +70,12 @@ ORDER BY households DESC;
  Inactivity is defined using an assumed 90-day threshold.
  A decline does not necessarily indicate customer churn.
  */
--- =====================================================
--- OPTIONAL: View Individual Household Classifications
 --
--- Run this query to see each household's purchase
--- activity, days since last purchase, and assigned
--- customer status (Inactive, Declining, Increasing,
--- or Stable).
+--
+-- =====================================================
+-- Optional-Extra Query 1: View Individual Household Classifications
+-- Purpose:
+-- This query shows each household's purchase activity, days since last purchase, and assigned customer status (Inactive, Declining, Increasing, or Stable).
 -- =====================================================
 WITH household_activity AS (
     SELECT household_key,

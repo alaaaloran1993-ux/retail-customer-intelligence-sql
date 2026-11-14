@@ -153,6 +153,9 @@ ORDER BY customer_group;
  quantity and sales, excluding blank department names.
  More frequent shopping may partly explain the difference.
  */
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
  FINAL SUMMARY - BUSINESS QUESTION 6
  Key Findings:

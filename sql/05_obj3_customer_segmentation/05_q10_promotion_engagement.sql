@@ -109,8 +109,13 @@ SELECT customer_segment,
 FROM promotion_activity
 GROUP BY customer_segment
 ORDER BY redemption_rate_among_assigned_pct DESC;
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
- Findings - Business Question 10: Promotional Engagement
+ FINAL SUMMARY - BUSINESS QUESTION 10
+ 
+ Key Findings: Business Question 10: Promotional Engagement
  - Champions have the highest campaign assignment (97.96%)
  and coupon redemption rate (43.56%).
  - Loyal Households have the second-highest campaign assignment (94.12%)

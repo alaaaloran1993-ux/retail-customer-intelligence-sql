@@ -97,9 +97,11 @@ FROM days_between_purchases;
  Calculated between distinct purchasing days.
  Three households purchased on only one observed day.
  */
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
  FINAL SUMMARY - BUSINESS QUESTION 1
- 
  - 2,500 households recorded 275,539 qualifying baskets.
  - Median purchase frequency: 78 baskets per household
  over the 711-day observation period.

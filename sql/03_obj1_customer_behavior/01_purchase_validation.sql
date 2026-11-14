@@ -32,7 +32,6 @@ SELECT COUNT(*) AS total_baskets,
 FROM basket_summary;
 /*
  Findings - Qualifying Purchase Basket Validation:
- 
  - Identified 276,484 unique baskets.
  - 275,539 baskets (99.66%) contain at least one
  transaction line with quantity > 0 AND sales_value > 0.
@@ -56,10 +55,8 @@ FROM basket_summary;
  */
 -- =====================================================
 -- Step 3.2: Investigate Non-Qualifying Baskets
---
--- Business Purpose:
--- Understand the transaction characteristics of
--- baskets that contain no positive purchase lines.
+-- Purpose:
+-- Understand the transaction characteristics of baskets that contain no positive purchase lines.
 -- =====================================================
 WITH basket_summary AS (
     SELECT basket_id,

@@ -42,8 +42,13 @@ SELECT COUNT(*) AS total_households,
         3
     ) AS basket_value_correlation
 FROM household_metrics;
+-- =====================================================
+--FINAL SUMMARY
+-- =====================================================
 /*
- Findings - Customer Spending Drivers:
+ FINAL SUMMARY - BUSINESS QUESTION 5
+ 
+ Key Findings: Customer Spending Drivers:
  - Shopping frequency has a strong positive correlation
  with household spending (0.703).
  - Average basket value shows a weaker positive
