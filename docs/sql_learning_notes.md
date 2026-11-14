@@ -39,3 +39,18 @@ not a statistical hypothesis test.
 
 A correlation does not prove that one variable causes
 changes in another.
+
+### EXISTS — Checking Whether a Matching Record Exists
+
+`EXISTS` checks whether a subquery returns at least one row.
+
+- Returns TRUE if a matching record exists.
+- Returns FALSE if no matching record exists.
+- `SELECT 1` is a convention; the actual value is irrelevant.
+
+**Project example:** Check whether each household was
+assigned to a campaign or redeemed a coupon.
+
+**Why use it?** Unlike a regular JOIN, EXISTS does not
+duplicate the original household rows when multiple
+matching records are found.

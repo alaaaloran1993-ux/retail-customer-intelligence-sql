@@ -1,12 +1,10 @@
 -- =====================================================
 -- PROJECT: Retail Customer Intelligence
 -- PHASE 3: CUSTOMER PURCHASING BEHAVIOR
+-- =====================================================
 -- Step 3.1: Validate Qualifying Purchase Baskets
---
--- Business Purpose:
--- Identify how many recorded baskets contain actual
--- purchasing activity before calculating purchase
--- frequency and customer retention KPIs.
+-- Purpose:
+-- Identify how many recorded baskets contain actual purchasing activity before calculating purchase frequency and customer retention KPIs.
 -- =====================================================
 WITH basket_summary AS (
     SELECT basket_id,
@@ -91,7 +89,6 @@ FROM basket_summary
 WHERE positive_purchase_lines = 0;
 /*
  Findings - Non-Qualifying Basket Investigation:
- 
  - Identified 945 baskets without positive-quantity,
  positive-sales transaction lines.
  - 592 baskets have zero total sales and quantity.
@@ -113,11 +110,8 @@ WHERE positive_purchase_lines = 0;
  */
 -- =====================================================
 -- Step 3.3: Investigate Positive-Sales, Zero-Quantity Baskets
---
--- Business Purpose:
--- Examine baskets with recorded sales value but no
--- qualifying purchase lines to understand whether
--- they represent genuine purchasing activity.
+-- Purpose:
+-- Examine baskets with recorded sales value but no qualifying purchase lines to understand whether they represent genuine purchasing activity.
 -- =====================================================
 WITH basket_summary AS (
     SELECT basket_id,
@@ -148,7 +142,6 @@ ORDER BY t.basket_id,
     t.product_id;
 /*
  Findings - Exceptional Basket Investigation:
- 
  - Identified 3 baskets with positive recorded sales
  but zero total quantity.
  - These baskets contain 5 transaction lines.

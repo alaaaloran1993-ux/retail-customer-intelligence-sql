@@ -127,3 +127,30 @@ period and may partly reflect differences in shopping
 frequency and opportunities to purchase.
 
 _Future Objective 3 methods will be added here after those analyses are completed._
+
+### Reusable SQL Logic
+
+Some queries repeat calculations from earlier objectives,
+including qualifying purchase baskets, household spending,
+and customer rankings.
+
+This is intentional to keep analytical definitions
+consistent and allow each SQL query to run independently.
+
+### RFM Segmentation Approach
+
+Households are segmented using Recency, Frequency,
+and Monetary scores ranging from 1 to 5.
+
+Recency uses CUME_DIST() to preserve identical
+inactivity values within the same scoring group.
+Frequency and Monetary use NTILE(5) to assign
+approximately equal-sized ranking groups.
+
+Customer segments are defined using combinations
+of RFM scores, following common retail RFM practices.
+Actual inactivity days are retained for subsequent
+validation and retention analysis.
+
+RFM scores reflect relative purchasing behavior,
+not confirmed customer loyalty or churn.

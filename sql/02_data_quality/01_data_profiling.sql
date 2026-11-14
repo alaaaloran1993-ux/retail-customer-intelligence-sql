@@ -4,6 +4,7 @@
 -- PURPOSE: Profile transaction data completeness
 -- =====================================================
 -- Step 2.1: Check Missing Values 
+-- =====================================================
 SELECT COUNT(*) AS total_records,
     COUNT(*) FILTER (
         WHERE household_key IS NULL
@@ -26,7 +27,6 @@ SELECT COUNT(*) AS total_records,
 FROM transaction_data;
 /*
  Findings - Missing Values Analysis:
- 
  - Reviewed 2,595,732 transaction lines.
  - No NULL values were found in household_key, basket_id,
  product_id, day, quantity, or sales_value.
@@ -38,7 +38,9 @@ FROM transaction_data;
  This does not establish that all fields or values are valid;
  zero values, blank text, and other anomalies need separate checks.
  */
+-- =====================================================
 -- Step 2.2: Explore transaction value ranges
+-- =====================================================
 SELECT MIN(quantity) AS min_quantity,
     MAX(quantity) AS max_quantity,
     MIN(sales_value) AS min_sales_value,
@@ -52,7 +54,6 @@ SELECT MIN(quantity) AS min_quantity,
 FROM transaction_data;
 /*
  Findings - Transaction Value Ranges:
- 
  - Quantity ranges from 0 to 89,638.
  - Sales value ranges from 0.00 to 840.00.
  - 14,466 lines have non-positive quantity (minimum is 0).
@@ -65,7 +66,9 @@ FROM transaction_data;
  Note:
  These counts overlap; do not add them as distinct records.
  */
+-- =====================================================
 -- Step 2.3: Investigate highest-quantity transactions
+-- =====================================================
 SELECT t.household_key,
     t.basket_id,
     t.product_id,
@@ -80,7 +83,6 @@ ORDER BY t.quantity DESC
 LIMIT 20;
 /*
  Findings - Highest-Quantity Transactions:
- 
  - All 20 highest-quantity lines are classified as
  GASOLINE-REG UNLEADED under COUPON/MISC ITEMS.
  - Departments include KIOSK-GAS and MISC SALES TRAN.
@@ -94,7 +96,9 @@ LIMIT 20;
  The exact gasoline quantity unit and scaling are unverified;
  do not interpret these quantities as individual items.
  */
+-- =====================================================
 -- Step 2.4: Investigate gasoline transaction quantities
+-- =====================================================
 SELECT p.department,
     COUNT(*) AS transaction_lines,
     MIN(t.quantity) AS min_quantity,
@@ -107,7 +111,6 @@ GROUP BY p.department
 ORDER BY transaction_lines DESC;
 /*
  Findings - Gasoline Transaction Analysis:
- 
  - KIOSK-GAS: 22,059 lines; sales value 544,222.28;
  quantity ranges from 1 to 89,638.
  - MISC SALES TRAN: 2,903 lines; sales value 89,734.98;
@@ -123,7 +126,9 @@ ORDER BY transaction_lines DESC;
  Retain the source transactions and monetary values; apply
  special handling only to unit-based analysis as appropriate.
  */
+-- =====================================================
 -- Step 2.5: Investigate zero-quantity and zero-sales records
+-- =====================================================
 SELECT COUNT(*) FILTER (
         WHERE quantity = 0
             AND sales_value = 0
@@ -139,7 +144,6 @@ SELECT COUNT(*) FILTER (
 FROM transaction_data;
 /*
  Findings - Zero Quantity and Zero Sales Analysis:
- 
  - 14,428 lines have both zero quantity and zero sales.
  - 38 lines have zero quantity but positive sales.
  - 4,451 lines have positive quantity but zero sales.
@@ -152,7 +156,9 @@ FROM transaction_data;
  Their business purpose is not confirmed; investigate product
  categories and transaction details before excluding records.
  */
+-- =====================================================
 -- Step 2.6: Investigate unusual transactions by department
+-- =====================================================
 SELECT p.department,
     COUNT(*) AS unusual_transaction_lines,
     COUNT(*) FILTER (
@@ -175,7 +181,6 @@ GROUP BY p.department
 ORDER BY unusual_transaction_lines DESC;
 /*
  Findings - Unusual Transactions by Department:
- 
  - A blank/whitespace-only department accounts for 7,839
  unusual lines, all with zero quantity and zero sales.
  - GROCERY has 3,770 unusual lines; DRUG GM has 2,003;
@@ -191,7 +196,9 @@ ORDER BY unusual_transaction_lines DESC;
  A blank department is not the same as SQL NULL. Use TRIM()
  when investigating whitespace-only text values.
  */
+-- =====================================================
 -- Step 2.7: Investigate blank department records
+-- =====================================================
 SELECT p.product_id,
     p.department,
     p.commodity_desc,
@@ -211,7 +218,6 @@ ORDER BY transaction_lines DESC
 LIMIT 20;
 /*
  Findings - Blank Department Investigation:
- 
  - Identified 7,839 lines associated with 15 product IDs.
  - Product IDs 5978656 and 5978648 account for 7,754 lines
  (98.9% of the blank-department lines).
@@ -226,8 +232,9 @@ LIMIT 20;
  Keep original records. Test whether associated baskets
  contain qualifying purchase activity before excluding them.
  */
--- Step 2.8: Check whether blank-department records
--- belong to baskets containing valid purchases
+-- =====================================================
+-- Step 2.8: Check whether blank-department records belong to baskets containing valid purchases
+-- =====================================================
 WITH blank_baskets AS (
     SELECT DISTINCT t.basket_id
     FROM transaction_data AS t
@@ -258,7 +265,6 @@ SELECT COUNT(*) AS baskets_with_blank_department,
 FROM basket_activity;
 /*
  Findings - Blank Department Basket Analysis:
- 
  - Found 7,392 distinct baskets with blank-department lines.
  - 7,075 baskets (95.7%) also contain at least one line
  with positive quantity and positive sales.
@@ -272,7 +278,9 @@ FROM basket_activity;
  Retain the 7,075 baskets in purchase-related investigations;
  inspect the 317 exceptions before defining purchase baskets.
  */
+-- =====================================================
 -- Step 2.9: Examine baskets without positive purchase lines
+-- =====================================================
 WITH blank_baskets AS (
     SELECT DISTINCT t.basket_id
     FROM transaction_data AS t
@@ -307,7 +315,6 @@ FROM basket_summary
 WHERE positive_purchase_lines = 0;
 /*
  Findings - Baskets Without Positive Purchases:
- 
  - Of 317 baskets lacking positive-quantity, positive-sales
  lines, 315 have total quantity = 0 and total sales = 0.
  - Two baskets have other recorded activity.
@@ -320,7 +327,9 @@ WHERE positive_purchase_lines = 0;
  The remaining two baskets require line-level review;
  source records should not be deleted.
  */
+-- =====================================================
 -- Step 2.10: Investigate exceptional baskets
+-- =====================================================
 WITH blank_baskets AS (
     SELECT DISTINCT t.basket_id
     FROM transaction_data AS t
@@ -361,7 +370,6 @@ ORDER BY t.basket_id,
     t.product_id;
 /*
  Findings - Exceptional Basket Investigation:
- 
  - Examined baskets 31625342103 and 31687292733.
  - Each contains a coupon-related line (quantity 1,
  sales 0.00) and a blank-department line (quantity 0,
@@ -380,7 +388,9 @@ ORDER BY t.basket_id,
  Validate the rule across all baskets before using it for
  frequency and retention KPIs. Keep original data unchanged.
  */
+-- =====================================================
 -- Step 2.11: Check for exact duplicate transaction records
+-- =====================================================
 SELECT household_key,
     basket_id,
     day,
@@ -412,7 +422,6 @@ ORDER BY duplicate_count DESC
 LIMIT 20;
 /*
  Findings - Exact Duplicate Transaction Analysis:
- 
  - No exact duplicate groups were returned when comparing
  all 12 transaction_data columns.
  - The check covered 2,595,732 transaction lines.
@@ -425,7 +434,9 @@ LIMIT 20;
  Repeated products in one basket may still be legitimate;
  there is no separate source transaction-line identifier.
  */
+-- =====================================================
 -- Step 2.12: Validate transaction period
+-- =====================================================
 SELECT MIN(day) AS first_transaction_day,
     MAX(day) AS last_transaction_day,
     COUNT(DISTINCT day) AS active_transaction_days,
@@ -434,7 +445,6 @@ SELECT MIN(day) AS first_transaction_day,
 FROM transaction_data;
 /*
  Findings - Transaction Period Validation:
- 
  - Transaction days range from 1 through 711.
  - All 711 distinct day numbers are represented.
  - Week numbers range from 1 to 102.
@@ -447,7 +457,9 @@ FROM transaction_data;
  Calendar dates were not verified; do not label relative
  days or weeks as specific real-world calendar dates.
  */
+-- =====================================================
 -- Step 2.13: Validate basket consistency
+-- =====================================================
 SELECT COUNT(*) AS total_baskets,
     COUNT(*) FILTER (
         WHERE household_count > 1
@@ -468,7 +480,6 @@ FROM (
     ) AS basket_summary;
 /*
  Findings - Basket Consistency Validation:
- 
  - Identified 276,484 distinct shopping baskets.
  - No basket IDs occur across multiple households.
  - No basket IDs occur across multiple transaction days.
