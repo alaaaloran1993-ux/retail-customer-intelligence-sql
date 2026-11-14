@@ -122,8 +122,84 @@ purchases, and exploring cross-category purchasing.
 These are analytical opportunities, not demonstrated
 effects of specific marketing interventions.
 
-### Objective 1 visualizations
+### Objective 2 visualizations
 
 - ![Customer Revenue Distribution](outputs/charts/customer_revenue_by_decile.png)
 - ![Department Spending Mix](outputs/charts/department_spending_mix.png)
 - ![Category Diversity](outputs/charts/category_diversity_by_customer_group.png)
+
+## Objective 3 — Identify Retention and Growth Opportunities
+
+### Q7. How can households be segmented using RFM?
+
+All **2,500 households** were classified into six score-based segments:
+
+| RFM segment                   | Households | Share of households |
+| ----------------------------- | ---------: | ------------------: |
+| Hibernating Households        |        549 |              21.96% |
+| Champions                     |        539 |              21.56% |
+| At-Risk Households            |        426 |              17.04% |
+| Potential Loyalists           |        414 |              16.56% |
+| Loyal Households              |        306 |              12.24% |
+| Regular / Moderate Engagement |        266 |              10.64% |
+
+**Business insight:** The segmentation distinguishes currently strong purchasing, lower-frequency growth candidates and comparatively less-recent activity. All labels are **relative**, not confirmed churn or loyalty. Segment meanings, complete RFM rules and recommended actions are documented in [methodology.md](methodology.md).
+
+### Q8. Which segments contribute most sales and show disengagement signs?
+
+| Segment                       | Share of recorded sales | Median days since last purchase | Households inactive 90+ days |
+| ----------------------------- | ----------------------: | ------------------------------: | ---------------------------: |
+| Champions                     |                  48.05% |                               1 |                            0 |
+| At-Risk Households            |                  16.26% |                              20 |                           38 |
+| Loyal Households              |                  14.71% |                               5 |                            0 |
+| Potential Loyalists           |                  10.13% |                               2 |                            0 |
+| Regular / Moderate Engagement |                   6.55% |                               7 |                            0 |
+| Hibernating Households        |                   4.30% |                              41 |                          136 |
+
+**Champions account for 21.56% of households but generate 48.05% of recorded sales.** Champions and Loyal Households together contribute **62.76%**. At-Risk households contribute **16.26%**, warranting investigation given their historical value. All **174** households with 90+ days of inactivity fall within the At-Risk (38) and Hibernating (136) groups, matching Objective 1.
+
+**Business insight:** Maintaining engagement among Champions and Loyal Households protects an important source of historical sales. Hibernating households show stronger prolonged-inactivity signals than At-Risk households. Yet only **8.92% of At-Risk** and **24.77% of Hibernating** households meet the 90-day threshold; segment names are not verified churn diagnoses.
+
+![Sales contribution versus household share](../outputs/charts/rfm_segment_revenue_vs_households.png)
+
+![Inactivity by segment](../outputs/charts/rfm_segment_inactivity.png)
+
+### Q9. Which occasional or moderate-value households might increase engagement?
+
+**Potential Loyalists (414)** and **Regular / Moderate Engagement (266)** total **680 households (27.20%)**. They average **57.88** and **55.90** qualifying baskets respectively, compared with **160.04** for Loyal Households. Yet their mean household-level average basket values (**33.65** and **35.05**) exceed the Loyal group (**25.30**). Potential Loyalists have particularly recent activity (mean recency **1.68 days**).
+
+An RFM-based screening rule (**R ≥ 3, F ≤ 3, M ≥ 3**) identifies **328 households (13.12% of all households)** to investigate for repeat-purchase opportunities.
+
+**Business insight:** A frequency-focused engagement experiment may be worth testing for these groups. The analysis does not predict uplift or prove that additional marketing would change their purchasing.
+
+### Q10. How do campaign assignment and coupon redemption differ by segment? (Supporting)
+
+| Segment                       | Campaign assignment rate | Redemption among assigned households |
+| ----------------------------- | -----------------------: | -----------------------------------: |
+| Champions                     |                   97.96% |                               43.56% |
+| Loyal Households              |                   94.12% |                               28.13% |
+| At-Risk Households            |                   81.22% |                               18.79% |
+| Potential Loyalists           |                   52.17% |                               17.59% |
+| Regular / Moderate Engagement |                   52.26% |                               13.67% |
+| Hibernating Households        |                   12.20% |                                1.49% |
+
+Across all segments, **1,584 households** were associated with campaigns and **434** redeemed coupons. Redemption was most common among campaign-assigned Champions and least common among campaign-assigned Hibernating households. **Campaign assignment does not prove exposure or active participation**; varying campaign targeting and customer behavior may explain differences.
+
+![Promotional engagement by RFM segment](../outputs/charts/rfm_promotional_engagement.png)
+
+### Q11. Are redemptions associated with later purchase changes? (Exploratory supporting)
+
+For **432** coupon-redeeming households with complete 30-day windows around first redemption (excluding redemption day):
+
+| Household-average measure   | 30 days before | 30 days after | Mean household change |
+| --------------------------- | -------------: | ------------: | --------------------: |
+| Qualifying purchase baskets |           9.04 |          8.90 |                 −0.15 |
+| Recorded spending           |         297.31 |        305.34 |                 +8.04 |
+
+The small differences suggest approximately stable purchasing frequency and modestly higher recorded spending among these households. **Promotional engagement does not automatically correspond to a meaningful increase in purchasing.** This before/after comparison has no control group, cannot establish promotional impact and does not fully isolate differences between types of promotional engagement.
+
+### Overall Objective 3 conclusion
+
+The retailer's historical sales depend heavily on recently active, high-spending households, while lower-frequency but meaningful spenders offer candidates for **testing** repeat-purchase initiatives. RFM segmentation is useful for prioritization, but actual inactivity shows why relative labels such as _At-Risk_ and _Hibernating_ must be interpreted cautiously. Coupon redemption differs markedly by segment, yet descriptive before/after results do **not** establish a meaningful or causal promotion-driven increase.
+
+**Status:** Q7–Q9 complete. Q10 retained as descriptive supporting analysis; Q11 retained as exploratory supporting analysis, with explicit caveats. The agreed questions in `docs/business_case.md` remain unchanged.

@@ -154,3 +154,62 @@ validation and retention analysis.
 
 RFM scores reflect relative purchasing behavior,
 not confirmed customer loyalty or churn.
+
+## Objective 3 — Retention and Growth Opportunities
+
+### Repeated SQL definitions
+
+Some stand-alone SQL queries repeat qualifying-basket, household-spending and RFM-segmentation logic. This is intentional: each business question remains independently executable while using consistent definitions. Repetition does not indicate additional transactions or households.
+
+### RFM measurement and scoring (Q7)
+
+The reference date is **dataset day 711**. Each household's metrics use the same qualifying basket rule established in Objective 1: a basket qualifies when **at least one** line has `quantity > 0 AND sales_value > 0`; all sales lines belonging to qualifying baskets contribute to monetary spending.
+
+- **Recency (R):** `711 - MAX(day)` for qualifying purchases. Fewer days means a more recent purchase.
+- **Frequency (F):** Distinct qualifying `basket_id` values per household over the observation period.
+- **Monetary (M):** Total recorded `sales_value` from all lines of qualifying baskets; this is not verified profit or net revenue.
+
+R is scored from **1 (least recent) to 5 (most recent)** using `CEIL(5 * CUME_DIST() OVER (ORDER BY recency_days DESC))`. Equal recency values get equal scores. F and M use `NTILE(5)` on ascending values, with `household_key` as a deterministic tie-breaker: approximately 500 households receive each F and M score. **`NTILE()` groups households according to ranking, without manually choosing spending thresholds.** F and M ties can be split at score boundaries; Recency group sizes can differ because tied days are preserved.
+
+Observed R score ranges were: **R5 = 0–1 days (629 households)**; **R4 = 2–4 (460)**; **R3 = 5–9 (436)**; **R2 = 10–27 (487)**; **R1 = 28–657 (488)**. R scores describe relative position, not verified churn severity.
+
+### RFM segments and business interpretation (Q7)
+
+The following **ordered CASE rules** classify all 2,500 households exactly once using R, F and M **scores only**. They were refined after reviewing an initially large residual group; the final result has no unclassified households.
+
+| Segment                       | RFM rule (in CASE order)    | Typical behavior                                | Potential business action           |
+| ----------------------------- | --------------------------- | ----------------------------------------------- | ----------------------------------- |
+| Champions                     | R ≥ 4, F ≥ 4, M ≥ 4         | Recent, frequent, high-spending                 | Reward and retain                   |
+| Loyal Households              | R ≥ 3, F ≥ 4; not Champions | Repeat buyers with reasonably recent activity   | Maintain loyalty; cross-sell        |
+| Potential Loyalists           | R ≥ 4, F ≤ 3                | Recently active, less frequent                  | Encourage repeat purchasing         |
+| Regular / Moderate Engagement | R = 3, F ≤ 3                | Intermediate or occasional activity             | Explore engagement opportunities    |
+| At-Risk Households            | R ≤ 2 and (F ≥ 3 or M ≥ 3)  | Less recent with some historical activity/value | Investigate potential disengagement |
+| Hibernating Households        | R ≤ 2, F ≤ 2, M ≤ 2         | Less recent and historically low engagement     | Consider low-cost reactivation      |
+
+These are **analytical segment labels**, not evidence that individual customers are loyal, lost, or at risk of churn. The conditions are checked in order, so prior matches take precedence. The segment definitions were adapted for this retail dataset rather than presented as a universal standard.
+
+### Revenue contribution and inactivity (Q8)
+
+Segment sales equal the sum of household M values; revenue shares use total recorded sales across all 2,500 households (**8,057,462.65**). Average spending is the mean of household spending within each segment. To validate the segment labels, inactivity is examined using actual `recency_days`, reported as average, median, and the count/share with **90 or more days** since last qualifying purchase. The 90-day threshold carries forward the **assumed inactivity indicator** from Objective 1; it is not confirmed churn.
+
+### Growth opportunity screening (Q9)
+
+The group-profile query compares Potential Loyalists and Regular / Moderate Engagement with Loyal Households as a reference. **Average basket value** is first calculated for each household (`total_spending / purchase_frequency`) and then averaged across households, giving each household equal weight.
+
+A narrower **candidate shortlist** uses **R ≥ 3, F ≤ 3, M ≥ 3**, producing 328 households. The displayed 20 households are the highest-spending members of that shortlist; the complete qualifying population remains 328. This screen is not a forecast of marketing response or incremental sales.
+
+### Promotional data validation and engagement (Q10; supporting)
+
+Campaign-to-household assignments (`campaign_table`) and coupon redemptions (`coupon_redempt`) are analyzed alongside RFM segments. Campaign definitions and periods come from `campaign_desc`; coupon/product mappings are available in `coupon`. All **2,318** recorded redemptions matched the household's campaign assignment and occurred within the recorded campaign period. Campaign assignment **does not establish actual exposure, attention, or participation**.
+
+Segment-level campaign-assignment and redemption measures use `EXISTS` to count **unique households**, avoiding multiplication caused by repeated campaign assignments or redemption events. Assignment rate is assigned households divided by all segment households. Redemption rate is coupon-redeeming households divided by campaign-assigned households in that segment; it is **not** the proportion of coupons redeemed or a measure of campaign effectiveness. RFM segments reflect the full observation window, not customer status at each campaign's start.
+
+### Before/after coupon redemption (Q11; exploratory supporting)
+
+For each household, the first recorded coupon-redemption day serves as the reference event. Households are included when the full **30 days before and 30 days after** fall within transaction days 1–711: first redemption day **31–681** inclusive. **432 of 434** redeeming households qualify. Redemption day is excluded, the before/after periods have equal duration, and zero-purchase windows remain in the averages. Purchase frequency counts qualifying baskets; spending includes all transaction lines in those baskets.
+
+The before/after comparison has **no non-redeeming control group**, and does not control for seasonality, concurrent promotions, selection effects, or baseline purchasing patterns. It is **descriptive**, not a causal estimate of promotional impact. Some campaigns extend to day 719, beyond the transaction observation end; the 30-day redemption windows are specifically restricted to avoid incomplete follow-up.
+
+### Scope and limitations
+
+Questions **Q10–Q11 remain supporting analyses under Objective 3**. Q10 provides descriptive promotional engagement by segment; Q11 is retained as **exploratory before/after analysis**, not evidence of effectiveness. This is a methodology/scope-status clarification, not a change to the agreed questions in `docs/business_case.md`. All results describe historical observed behavior, and future purchases and campaign outcomes are not available.

@@ -74,3 +74,27 @@ they do not establish causation or customer profitability.
 ![Department Spending Mix](outputs/charts/department_spending_mix.png)
 
 ![Category Diversity](outputs/charts/category_diversity_by_customer_group.png)
+
+## Objective 3 — Identify Retention and Growth Opportunities
+
+**Business decision:** Which households might benefit from differentiated engagement or retention initiatives?
+
+Using Recency, Frequency and Monetary (RFM) scores, **2,500 purchasing households** were classified into six behavioral segments. These are relative, analysis-defined groups—not confirmed loyalty or churn labels.
+
+### Key findings
+
+- **Revenue concentration (Q7–Q8):** Champions account for **21.56% of households** but **48.05% of recorded sales**. Champions and Loyal Households together generate **62.76%**.
+- **Inactivity warning signs (Q8):** **174 households** had no qualifying purchase for at least 90 days: **136 Hibernating** and **38 At-Risk**. The 90-day cutoff is an analytical assumption, not confirmed churn.
+- **Growth candidates (Q9):** **328 households** (13.12%) met a defined RFM screening rule for relatively recent activity, lower frequency and moderate-or-higher spending; this is not a response prediction.
+- **Promotional engagement (Q10, supporting):** Among campaign-assigned households, coupon redemption was highest for **Champions (43.56%)** and lowest for **Hibernating (1.49%)**. Assignment does not prove campaign exposure.
+- **Purchasing after redemption (Q11, exploratory supporting):** For **432 households** with complete 30-day windows, average qualifying baskets changed from **9.04 to 8.90**, while average recorded spending changed from **297.31 to 305.34**. **Promotional engagement does not automatically correspond to a meaningful increase in purchasing.** These before/after results do not establish promotional impact.
+
+### Visualizations
+
+![RFM segment sales vs household share](outputs/charts/rfm_segment_revenue_vs_households.png)
+
+![Prolonged inactivity by RFM segment](outputs/charts/rfm_segment_inactivity.png)
+
+![Campaign assignment and coupon redemption](outputs/charts/rfm_promotional_engagement.png)
+
+**Methodology and full findings:** [Methodology](docs/methodology.md) · [Business insights](docs/final_insights.md)
